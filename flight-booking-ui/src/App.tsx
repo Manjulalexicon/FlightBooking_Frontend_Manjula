@@ -1,7 +1,15 @@
-import FlightsPage from "./pages/FlightsPage";
+import FlightList from "./components/FlightList";
+
 
 function App() {
-  return <FlightsPage />;
+
+  return (
+
+    <FlightList />
+
+  );
+
 }
+
 
 export default App;
