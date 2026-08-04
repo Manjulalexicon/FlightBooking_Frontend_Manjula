@@ -20,15 +20,22 @@ public class FlightBookingDataRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        // Available flights (7)
-        FlightBooking flight1 = FlightBooking.builder()
-                .flightNumber("FL001")
-                .departureTime(LocalDateTime.now().plusDays(1))
-                .arrivalTime(LocalDateTime.now().plusDays(1).plusHours(2))
-                .status(FlightStatus.AVAILABLE)
-                .destination("London")
-                .price(199.99)
-                .build();
+
+            if (flightBookingRepository.count() > 0) {
+                System.out.println("Sample data already exists. Skipping initialization.");
+                return;
+            }
+
+            // Available flights (7)
+            FlightBooking flight1 = FlightBooking.builder()
+                    .flightNumber("FL001")
+                    .departureTime(LocalDateTime.now().plusDays(1))
+                    .arrivalTime(LocalDateTime.now().plusDays(1).plusHours(2))
+                    .status(FlightStatus.AVAILABLE)
+                    .destination("London")
+                    .price(199.99)
+                    .build();
+
 
         FlightBooking flight2 = FlightBooking.builder()
                 .flightNumber("FL002")

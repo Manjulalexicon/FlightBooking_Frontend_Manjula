@@ -1,9 +1,7 @@
+import FlightsPage from "./pages/FlightsPage";
+
 function App() {
-  return (
-    <div>
-      <h1>Flight Booking System</h1>
-    </div>
-  );
+  return <FlightsPage />;
 }
 
 export default App;
