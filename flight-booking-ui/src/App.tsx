@@ -1,3 +1,4 @@
+import Navbar from "./components/Navbar";
 import FlightList from "./components/FlightList";
 
 
@@ -5,7 +6,13 @@ function App() {
 
   return (
 
-    <FlightList />
+    <>
+
+      <Navbar />
+
+      <FlightList />
+
+    </>
 
   );
 
