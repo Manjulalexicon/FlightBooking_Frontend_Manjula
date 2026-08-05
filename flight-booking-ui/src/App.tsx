@@ -1,22 +1,27 @@
+import { useState } from "react";
 import Navbar from "./components/Navbar";
 import FlightList from "./components/FlightList";
-
+import MyBookings from "./components/MyBookings";
 
 function App() {
 
-  return (
+    const [page, setPage] = useState("flights");
 
-    <>
+    return (
 
-      <Navbar />
+        <>
+            <Navbar setPage={setPage} />
 
-      <FlightList />
+            {
+                page === "flights"
+                    ? <FlightList />
+                    : <MyBookings />
+            }
 
-    </>
+        </>
 
-  );
+    );
 
 }
-
 
 export default App;

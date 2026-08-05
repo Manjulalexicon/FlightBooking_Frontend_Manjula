@@ -1,11 +1,13 @@
 import axios from "axios";
-import type { BookFlightRequest } from "../models/BookFlightRequest";
 
 const API_URL = "http://localhost:8080/api/flights";
 
 export const bookFlight = async (
     flightId: number,
-    booking: BookFlightRequest
+    booking: {
+        passengerName: string;
+        passengerEmail: string;
+    }
 ) => {
 
     const response = await axios.post(
@@ -14,4 +16,36 @@ export const bookFlight = async (
     );
 
     return response.data;
+};
+
+export const getBookingsByEmail = async (email: string) => {
+
+    const response = await axios.get(
+        `${API_URL}/bookings?email=${email}`
+    );
+
+    return response.data;
+};
+
+import type { Booking } from "../models/Booking";
+
+
+export const getBookings = async (email: string): Promise<Booking[]> => {
+
+    const response = await axios.get(
+        `${API_URL}/bookings?email=${email}`
+    );
+
+    return response.data;
+};
+
+export const cancelBooking = async (
+    flightId: number,
+    email: string
+) => {
+
+    await axios.delete(
+        `${API_URL}/${flightId}/cancel?email=${email}`
+    );
+
 };
