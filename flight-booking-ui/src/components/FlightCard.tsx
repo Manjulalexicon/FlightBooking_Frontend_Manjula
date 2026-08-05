@@ -1,10 +1,9 @@
 import type { Flight } from "../models/Flight";
-
+import BookingForm from "./BookingForm";
 
 interface Props {
     flight: Flight;
 }
-
 
 function FlightCard({ flight }: Props) {
 
@@ -12,9 +11,7 @@ function FlightCard({ flight }: Props) {
 
         <div>
 
-            <h2>
-                {flight.flightNumber}
-            </h2>
+            <h2>{flight.flightNumber}</h2>
 
             <p>
                 ✈ Destination: {flight.destination}
@@ -32,12 +29,14 @@ function FlightCard({ flight }: Props) {
                 💰 Price: €{flight.price}
             </p>
 
+            <BookingForm flightId={flight.id} />
+
             <hr />
 
         </div>
 
     );
-}
 
+}
 
 export default FlightCard;
