@@ -1,24 +1,37 @@
-import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
-import FlightList from "./components/FlightList";
-import MyBookings from "./components/MyBookings";
+
+import FlightPage from "./pages/FlightPage";
+import MyBookingsPage from "./pages/MyBookingsPage";
+
 
 function App() {
 
-    const [page, setPage] = useState("flights");
-
     return (
 
-        <>
-            <Navbar setPage={setPage} />
+        <BrowserRouter>
 
-            {
-                page === "flights"
-                    ? <FlightList />
-                    : <MyBookings />
-            }
+            <Navbar />
 
-        </>
+
+            <Routes>
+
+                <Route
+                    path="/"
+                    element={<FlightPage />}
+                />
+
+
+                <Route
+                    path="/bookings"
+                    element={<MyBookingsPage />}
+                />
+
+            </Routes>
+
+
+        </BrowserRouter>
 
     );
 

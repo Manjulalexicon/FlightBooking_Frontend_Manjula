@@ -1,35 +1,45 @@
 interface Props {
-    setPage: (page: string) => void;
+    setPage: (page:string)=>void;
 }
 
-function Navbar({ setPage }: Props) {
 
-    return (
+function Navbar({setPage}:Props){
 
-        <nav>
+    return(
 
-            <h1>✈ Flight Booking System</h1>
+        <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
 
-            <div>
+            <h1 className="text-2xl font-bold">
+                ✈ Flight Booking System
+            </h1>
+
+
+            <div className="space-x-4">
 
                 <button
-                    onClick={() => setPage("flights")}
+                onClick={()=>setPage("flights")}
+                className="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-100"
                 >
                     Available Flights
                 </button>
 
+
                 <button
-                    onClick={() => setPage("bookings")}
+                onClick={()=>setPage("bookings")}
+                className="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-100"
                 >
                     My Bookings
                 </button>
 
+
             </div>
+
 
         </nav>
 
     );
 
 }
+
 
 export default Navbar;
