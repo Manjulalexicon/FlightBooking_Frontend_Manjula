@@ -86,4 +86,13 @@ public class FlightBookingServiceImpl implements FlightBookingService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public AvailableFlightDTO findFlightById(Long flightId) {
+
+        FlightBooking flight = flightBookingRepository.findById(flightId)
+                .orElseThrow(() -> new ResourceNotFoundException("Flight not found"));
+
+        return mapper.toAvailableFlightDTO(flight);
+    }
+
 }

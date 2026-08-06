@@ -14,6 +14,7 @@ function FlightList() {
 
     const [search, setSearch] = useState("");
     const [selectedDate, setSelectedDate] = useState("");
+    const [sortOption, setSortOption] = useState("");
 
     useEffect(() => {
         loadFlights();
@@ -21,17 +22,23 @@ function FlightList() {
 
     const loadFlights = async () => {
         try {
+
             setLoading(true);
 
             const data = await getAvailableFlights();
+
             setFlights(data);
 
         } catch (error) {
+
             console.error(error);
+
             setError("Failed to load flights");
 
         } finally {
+
             setLoading(false);
+
         }
     };
 
@@ -47,10 +54,40 @@ function FlightList() {
             flight.departureTime.startsWith(selectedDate);
 
         return matchesDestination && matchesDate;
+
+    });
+
+    const sortedFlights = [...filteredFlights].sort((a, b) => {
+
+        if (sortOption === "priceLow") {
+            return a.price - b.price;
+        }
+
+        if (sortOption === "priceHigh") {
+            return b.price - a.price;
+        }
+
+        if (sortOption === "departureEarly") {
+            return (
+                new Date(a.departureTime).getTime() -
+                new Date(b.departureTime).getTime()
+            );
+        }
+
+        if (sortOption === "departureLate") {
+            return (
+                new Date(b.departureTime).getTime() -
+                new Date(a.departureTime).getTime()
+            );
+        }
+
+        return 0;
+
     });
 
     if (loading) {
         return (
+
             <div className="flex flex-col justify-center items-center min-h-screen">
 
                 <div
@@ -65,11 +102,12 @@ function FlightList() {
                     "
                 />
 
-                <p className="mt-4 text-gray-600 text-lg">
+                <p className="mt-4 text-lg text-gray-600">
                     Loading flights...
                 </p>
 
             </div>
+
         );
     }
 
@@ -83,11 +121,13 @@ function FlightList() {
 
     return (
 
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 p-8">
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 p-4 md:p-8">
 
             <h1 className="text-5xl font-extrabold text-center text-blue-700 mb-8">
                 Available Flights
             </h1>
+
+            {/* Search */}
 
             <div className="max-w-xl mx-auto mb-5">
 
@@ -111,7 +151,9 @@ function FlightList() {
 
             </div>
 
-            <div className="max-w-xl mx-auto mb-8">
+            {/* Date */}
+
+            <div className="max-w-xl mx-auto mb-5">
 
                 <input
                     type="date"
@@ -132,10 +174,56 @@ function FlightList() {
 
             </div>
 
+            {/* Sort */}
+
+            <div className="max-w-xl mx-auto mb-8">
+
+                <select
+                    value={sortOption}
+                    onChange={(e) => setSortOption(e.target.value)}
+                    className="
+                        w-full
+                        border
+                        rounded-xl
+                        px-4
+                        py-3
+                        shadow-md
+                        focus:ring-2
+                        focus:ring-blue-500
+                        focus:outline-none
+                    "
+                >
+
+                    <option value="">
+                        Sort Flights
+                    </option>
+
+                    <option value="priceLow">
+                        Price: Low to High
+                    </option>
+
+                    <option value="priceHigh">
+                        Price: High to Low
+                    </option>
+
+                    <option value="departureEarly">
+                        Departure: Earliest First
+                    </option>
+
+                    <option value="departureLate">
+                        Departure: Latest First
+                    </option>
+
+                </select>
+
+            </div>
+
+            {/* Flight Cards */}
+
             <div className="max-w-5xl mx-auto">
 
                 {
-                    filteredFlights.length === 0 ? (
+                    sortedFlights.length === 0 ? (
 
                         <div className="bg-white rounded-xl shadow-lg p-10 text-center">
 
@@ -151,7 +239,7 @@ function FlightList() {
 
                     ) : (
 
-                        filteredFlights.map((flight) => (
+                        sortedFlights.map((flight) => (
 
                             <div key={flight.id} className="mb-6">
 
@@ -166,8 +254,11 @@ function FlightList() {
                                         <BookingForm
                                             flightId={flight.id}
                                             onBookingSuccess={() => {
+
                                                 setSelectedFlight(null);
+
                                                 loadFlights();
+
                                             }}
                                         />
 
@@ -186,6 +277,7 @@ function FlightList() {
         </div>
 
     );
+
 }
 
 export default FlightList;

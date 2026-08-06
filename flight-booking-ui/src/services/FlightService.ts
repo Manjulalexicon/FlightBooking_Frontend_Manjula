@@ -9,3 +9,10 @@ export const getAvailableFlights = async (): Promise<Flight[]> => {
     return response.data;
 
 };
+export const getFlightById = async (id: number) => {
+
+    const response = await api.get(`/flights/${id}`);
+
+    return response.data;
+
+};

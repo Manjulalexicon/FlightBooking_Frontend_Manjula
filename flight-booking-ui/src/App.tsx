@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import FlightPage from "./pages/FlightPage";
 import MyBookingsPage from "./pages/MyBookingsPage";
 import { ToastContainer } from "react-toastify";
+import FlightDetailsPage from "./pages/FlightDetailsPage";
 
 
 function App() {
@@ -27,6 +28,11 @@ function App() {
                 <Route
                     path="/bookings"
                     element={<MyBookingsPage />}
+                />
+
+                <Route
+                    path="/flight/:id"
+                    element={<FlightDetailsPage />}
                 />
 
             </Routes>

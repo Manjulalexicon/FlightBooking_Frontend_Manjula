@@ -41,6 +41,20 @@ public class FlightBookingController {
     public ResponseEntity<List<AvailableFlightDTO>> getAvailableFlights() {
         return ResponseEntity.ok(flightBookingService.findAvailableFlights());
     }
+    @Operation(summary = "Get flight by ID", description = "Returns a single flight by its ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Flight found"),
+            @ApiResponse(responseCode = "404", description = "Flight not found")
+    })
+    @GetMapping("/{flightId}")
+    public ResponseEntity<AvailableFlightDTO> getFlightById(
+            @Parameter(description = "Flight ID")
+            @PathVariable Long flightId) {
+
+        return ResponseEntity.ok(
+                flightBookingService.findFlightById(flightId)
+        );
+    }
 
     @Operation(summary = "Book a flight", description = "Books a flight for a passenger")
     @ApiResponses(value = {

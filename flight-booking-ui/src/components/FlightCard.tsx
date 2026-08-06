@@ -1,4 +1,6 @@
 import type { Flight } from "../models/Flight";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 
 interface Props {
@@ -9,6 +11,28 @@ interface Props {
 
 function FlightCard({flight,onBook}:Props){
 
+const [favorite, setFavorite] = useState(() => {
+
+    const saved = localStorage.getItem(
+        `favorite-${flight.id}`
+    );
+
+    return saved === "true";
+
+});
+
+const toggleFavorite = () => {
+
+    const newValue = !favorite;
+
+    setFavorite(newValue);
+
+    localStorage.setItem(
+        `favorite-${flight.id}`,
+        String(newValue)
+    );
+
+};
 
 return(
 
@@ -53,27 +77,66 @@ duration-300
 </p>
 
 
-<button
+<div className="flex gap-3 mt-4">
 
-onClick={()=>onBook(flight.id)}
+    <button
+        onClick={() => onBook(flight.id)}
+        className="
+            bg-blue-600
+            text-white
+            px-5
+            py-2
+            rounded-lg
+            hover:bg-blue-700
+            hover:scale-105
+            transition-all
+            duration-300
+            font-semibold
+        "
+    >
+        Book Now
+    </button>
 
-className="
-mt-4
-bg-blue-600
-text-white
-px-5
-py-2
-rounded-lg
-hover:bg-blue-700
-hover:scale-105
-transition-all
-duration-300
-font-semibold
-"
+    <button
+        onClick={toggleFavorite}
+        className="
+            bg-yellow-400
+            px-4
+            py-2
+            rounded-lg
+            font-semibold
+            hover:bg-yellow-500
+        "
+    >
+        {
+            favorite
+            ? "❤️ Favorite"
+            : "🤍 Favorite"
+        }
+    </button>
 
->
-Book Now
-</button>
+    <Link to={`/flight/${flight.id}`}>
+
+        <button
+            className="
+                bg-gray-700
+                text-white
+                px-5
+                py-2
+                rounded-lg
+                hover:bg-gray-800
+                hover:scale-105
+                transition-all
+                duration-300
+                font-semibold
+            "
+        >
+            View Details
+        </button>
+
+    </Link>
+
+</div>
 
 
 </div>

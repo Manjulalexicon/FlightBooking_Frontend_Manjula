@@ -18,4 +18,6 @@ public interface FlightBookingService {
     List<AvailableFlightDTO> findAvailableFlights();
 
     List<FlightBookingDTO> findBookingsByEmail(String email);
+
+    AvailableFlightDTO findFlightById(Long flightId);
 }
