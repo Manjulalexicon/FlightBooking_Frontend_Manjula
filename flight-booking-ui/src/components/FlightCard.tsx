@@ -19,8 +19,10 @@ rounded-xl
 p-6
 mb-5
 border
-hover:shadow-xl
-transition
+hover:shadow-2xl
+hover:-translate-y-2
+transition-all
+duration-300
 ">
 
 
@@ -63,6 +65,10 @@ px-5
 py-2
 rounded-lg
 hover:bg-blue-700
+hover:scale-105
+transition-all
+duration-300
+font-semibold
 "
 
 >

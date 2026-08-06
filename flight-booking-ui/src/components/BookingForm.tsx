@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { bookFlight } from "../services/bookingService";
+import { toast } from "react-toastify";
 
 
 interface Props {
@@ -32,12 +33,14 @@ function BookingForm({
         try {
 
             setLoading(true);
-            await bookFlight(flightId, {
-                passengerName,
-                passengerEmail
-            });
+           await bookFlight(flightId, {
+               passengerName,
+               passengerEmail
+           });
 
-            setSuccess(true);
+           toast.success("✈ Flight booked successfully!");
+
+           setSuccess(true);
             setLoading(false);
 
             setPassengerName("");
@@ -56,7 +59,7 @@ function BookingForm({
 
             console.error(error);
 
-            alert("Booking failed");
+            toast.error("Booking failed!");
 
         }
 
@@ -67,12 +70,12 @@ function BookingForm({
    return (
        <div
            className="
-               bg-blue-50
+               bg-white
                rounded-xl
                p-6
                mt-5
                border
-               shadow
+               shadow-xl
            "
        >
            <h2 className="text-2xl font-bold mb-5 text-blue-700">
@@ -131,20 +134,22 @@ function BookingForm({
 
                </div>
 
-               <button
-                   type="submit"
-                   className="
-                       bg-green-600
-                       text-white
-                       px-6
-                       py-2
-                       rounded-lg
-                       hover:bg-green-700
-                       font-semibold
-                   "
-               >
-                   Confirm Booking
-               </button>
+              <button
+                  type="submit"
+                  disabled={loading}
+                  className="
+                      bg-green-600
+                      text-white
+                      px-6
+                      py-2
+                      rounded-lg
+                      hover:bg-green-700
+                      font-semibold
+                      disabled:bg-gray-400
+                  "
+              >
+                  {loading ? "Booking..." : "Confirm Booking"}
+              </button>
 
            </form>
 
