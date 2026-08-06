@@ -1,45 +1,66 @@
-interface Props {
-    setPage: (page:string)=>void;
-}
+import { Link } from "react-router-dom";
 
+function Navbar() {
 
-function Navbar({setPage}:Props){
+    return (
 
-    return(
+        <nav
+            className="
+                bg-blue-700
+                text-white
+                shadow-lg
+                px-8
+                py-4
+                flex
+                justify-between
+                items-center
+            "
+        >
 
-        <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
-
-            <h1 className="text-2xl font-bold">
+            <h1 className="text-3xl font-bold">
                 ✈ Flight Booking System
             </h1>
 
-
             <div className="space-x-4">
 
-                <button
-                onClick={()=>setPage("flights")}
-                className="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-100"
-                >
-                    Available Flights
-                </button>
+                <Link to="/">
+                    <button
+                        className="
+                            bg-white
+                            text-blue-700
+                            px-5
+                            py-2
+                            rounded-lg
+                            font-semibold
+                            hover:bg-gray-100
+                        "
+                    >
+                        Available Flights
+                    </button>
+                </Link>
 
-
-                <button
-                onClick={()=>setPage("bookings")}
-                className="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-100"
-                >
-                    My Bookings
-                </button>
-
+                <Link to="/bookings">
+                    <button
+                        className="
+                            bg-green-500
+                            text-white
+                            px-5
+                            py-2
+                            rounded-lg
+                            font-semibold
+                            hover:bg-green-600
+                        "
+                    >
+                        My Bookings
+                    </button>
+                </Link>
 
             </div>
-
 
         </nav>
 
     );
 
 }
-
 
 export default Navbar;

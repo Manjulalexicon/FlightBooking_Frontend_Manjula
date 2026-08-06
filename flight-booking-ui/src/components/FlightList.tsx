@@ -99,9 +99,14 @@ function FlightList() {
                                 selectedFlight === flight.id && (
 
                                     <BookingForm
-
                                         flightId={flight.id}
+                                        onBookingSuccess={() => {
 
+                                            setSelectedFlight(null);
+
+                                            loadFlights();
+
+                                        }}
                                     />
 
                                 )

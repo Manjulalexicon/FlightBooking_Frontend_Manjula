@@ -60,22 +60,48 @@ function MyBookings() {
 
     return (
 
-        <div>
+            <div className="bg-gray-100 min-h-screen p-8">
+            <div className="max-w-4xl mx-auto">
 
-            <h1>My Bookings</h1>
-
-
-            <input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e)=>setEmail(e.target.value)}
-            />
+            <h1 className="text-4xl font-bold text-center mb-8">
+                My Bookings
+            </h1>
 
 
-            <button onClick={searchBookings}>
-                Search
-            </button>
+            <div className="flex gap-4 mb-8">
+
+                <input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="
+                        flex-1
+                        border
+                        rounded-lg
+                        px-4
+                        py-3
+                        shadow-sm
+                        focus:outline-none
+                        focus:ring-2
+                        focus:ring-blue-500
+                    "
+                />
+
+                <button
+                    onClick={searchBookings}
+                    className="
+                        bg-blue-600
+                        text-white
+                        px-6
+                        rounded-lg
+                        hover:bg-blue-700
+                    "
+                >
+                    Search
+                </button>
+
+            </div>
 
 
             <hr/>
@@ -90,50 +116,60 @@ function MyBookings() {
 
 
             {
-                bookings.map((booking)=>(
+                bookings.map((booking) => (
 
-                    <div key={booking.id}>
+                    <div
+                        key={booking.id}
+                        className="
+                            bg-white
+                            rounded-xl
+                            shadow-lg
+                            p-6
+                            mb-6
+                            border
+                            hover:shadow-xl
+                            transition
+                        "
+                    >
 
-
-                        <h2>
+                        <h2 className="text-2xl font-bold text-blue-600 mb-3">
                             {booking.flightNumber}
                         </h2>
 
-
                         <p>
-                            Name: {booking.passengerName}
+                            👤 <strong>Name:</strong> {booking.passengerName}
                         </p>
 
-
                         <p>
-                            Email: {booking.passengerEmail}
+                            📧 <strong>Email:</strong> {booking.passengerEmail}
                         </p>
 
-
                         <p>
-                            Destination: {booking.destination}
+                            ✈ <strong>Destination:</strong> {booking.destination}
                         </p>
 
-
                         <p>
-                            Status: {booking.status}
+                            📌 <strong>Status:</strong> {booking.status}
                         </p>
 
-
-                        <p>
-                            Price: €{booking.price}
+                        <p className="text-green-600 font-bold mt-2">
+                            💰 €{booking.price}
                         </p>
 
-
-                        {/* ADD BUTTON HERE 👇 */}
                         <button
                             onClick={() => handleCancel(booking.id)}
+                            className="
+                                mt-4
+                                bg-red-600
+                                text-white
+                                px-4
+                                py-2
+                                rounded-lg
+                                hover:bg-red-700
+                            "
                         >
                             Cancel Booking
                         </button>
-
-
-                        <hr/>
 
 
                     </div>
@@ -142,6 +178,7 @@ function MyBookings() {
             }
 
 
+        </div>
         </div>
 
     );
